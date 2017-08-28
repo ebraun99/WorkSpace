@@ -1,72 +1,33 @@
-
+import java.util.regex.*;
 
 public class Main
 {
 
     public static void main(String[] args)
     {
-//        There are N children standing in a line. Each child is assigned a rating value.
-//        You are giving candies to these children subjected to the following requirements:
-//
-//        1. Each child must have at least one candy.
-//        2. Children with a higher rating get more candies than their neighbors.
-//
-//            What is the minimum candies you must give?
-//
-//            Analysis
-//
-//        This problem can be solved in O(n) time.
-
-        int[] ratings = new int[]{
-                1,2,3,2,3,7,2,1
+        int[][] array = new int[][]{
+            {1,2,3},
+            {4,5,6},
+            {7,8,9}
         };
 
-        System.out.println(candyMan(ratings));
+        String longString = " Eric Braun ND 58104 MN (612)555-3948 johnsmith";
+        String strageString = " 1Z aaa **** *** {{{ {{ { ";
+
+        // word that is 2 to 20 characters in length
+
+        // [A-Za-z]{2,20} \\w{2,20}
+
+        regexChecker("\\s[A-Za-z]{2,20}\\s", longString);
+
 
 
     }
 
-    public static int candyMan(int[] ratings)
-    {
-        int length = ratings.length;
-        int[] passThrough = new int[length];
-        int[] passThrough2 = new int[length];
+    public static void regexChecker(String theRegex, String str2Check){
 
-        int candyCount = 0;
-
-
-
-        passThrough[0] = 1;
-        passThrough2[length-1] = 1;
-
-        for(int i=1;i<length;i++)
-        {
-            if(ratings[i]>ratings[i-1])
-            {
-                passThrough[i] = passThrough[i-1] + 1;
-            }
-
-            else
-            {
-                passThrough[i] = 1;
-            }
-
-            if(ratings[length - i -1]>ratings[length - i])
-            {
-                passThrough2[length - i - 1] = passThrough2[length - i] + 1;
-            }
-
-            else
-            {
-                passThrough2[length - i - 1] = 1;
-            }
-        }
-
-        for(int i=0;i<length;i++)
-        {
-            candyCount+= Math.max(passThrough[i],passThrough2[i]);
-        }
-
-        return candyCount;
+        Pattern checkRegex = Pattern.compile(theRegex);
     }
+
+
 }
