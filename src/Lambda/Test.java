@@ -2,17 +2,37 @@ package Lambda;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 
 public class Test {
 
-    public static void main(String[] args)
+    public static void main(String... args)
     {
+        //custom functional interface
         AdditionFI additionFI = (a,b)->a+b;
 
         System.out.println(additionFI.add(1,2));
 
-        FizzBuzz fizzBuzz = (a)-> (a % 15 == 0 ? "FizzBuzz": a % 5 == 0 ? "Buzz" : a % 3 == 0 ? "Fizz" : Integer.toString(a));
+
+        IntStream();
+
+        method2();
+
+
+        //fizzBuzz Method
+        Function<Integer, String> fizzBuzz1 = (n) -> (n % 15 == 0 ? "FizzBuzz": n % 5 == 0 ? "Buzz" : n % 3 == 0 ? "Fizz" : Integer.toString(n));
+
+        System.out.println(fizzBuzz(5,fizzBuzz1));
+
+
+    }
+
+    private static void IntStream()
+    {
+        //method 1
+        FizzBuzz fizzBuzz = (n)-> (n % 15 == 0 ? "FizzBuzz": n % 5 == 0 ? "Buzz" : n % 3 == 0 ? "Fizz" : Integer.toString(n));
 
         System.out.println(fizzBuzz.fizzBuzz(3));
 
@@ -37,8 +57,26 @@ public class Test {
         IntStream.rangeClosed(1,100)
                 .mapToObj(fizzBuzz::fizzBuzz)
                 .forEach(System.out::println);
-
-
-
     }
+
+    private static void method2()
+    {
+        //method 2
+        BiFunction<Integer, Integer,String> biFunction = (s,t) -> "Multiply: " + s * t;
+
+        System.out.println(biFunction.apply(5,6));
+
+        Function<Integer, String> fizzBuzz1 = (n) -> (n % 15 == 0 ? "FizzBuzz": n % 5 == 0 ? "Buzz" : n % 3 == 0 ? "Fizz" : Integer.toString(n));
+
+        IntStream.rangeClosed(1,100)
+                .mapToObj(fizzBuzz1::apply)
+                .forEach(System.out::println);
+    }
+
+    private static String fizzBuzz(int n, Function<Integer,String> function)
+    {
+        return (function.apply(n));
+    }
+
+
 }
