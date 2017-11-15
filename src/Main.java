@@ -1,22 +1,41 @@
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class Main
 {
-    public static void main(String[] args)
+
+    public static char firstDuplicate(String s)
     {
-        int currentTime = 0;
-        int[] arrivalTime = {3,3,9};
-        int[] serviceTime = {2,15,14};
-        int currentMax = -1;
-        int wait = 0;
+        char c = '_';
+        HashSet<Character> set = new HashSet<>();
 
 
-        for (int i=0;i<serviceTime.length;i++)
+        for (int i = 0; i <s.length() ; i++)
         {
-            wait = Math.max(currentTime, arrivalTime[i]);
-            currentMax = Math.max(currentMax, wait - arrivalTime[i]);
-            currentTime = wait + serviceTime[i];
+            if(set.add(s.charAt(i)))
+            {
+
+                if (i != s.length() - 1) {
+                    if (s.indexOf(s.charAt(i), i + 1) == -1) {
+                        c = s.charAt(i);
+                    }
+                }
+//                else {
+//                    if (s.lastIndexOf(s.charAt(i)) != i) {
+//                        c = s.charAt(i);
+//                    }
+//                }
+            }
+
         }
 
-        System.out.println("Current Max is: " + currentMax);
+        return c;
+    }
+
+    public static void main(String[] args)
+    {
+        String s = "abacabaabacaba";
+
+        System.out.println(firstDuplicate(s));
     }
 }
